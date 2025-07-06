@@ -111,9 +111,9 @@ jobs:
           restore-keys: |
             ${{runner.os}}-go-vendor-
       - name: Lint
-        uses: golangci/golangci-lint-action@v3.1.0
+        uses: golangci/golangci-lint-action@v6
         with:
-          version: latest
+          version: v1.64.1
       - name: Format code
         run: |
           if [ $(find . ! -path "./vendor/*" -name "*.go" -exec gofmt -s -d {} \;|wc -l) -gt 0 ]; then
