@@ -322,10 +322,11 @@ docker run --rm -it \
   [あなたのユーザー名]/lazydocker-fixed:latest
 ```
 
-For convenience, you can create an alias:
+- Don't forget to change `/yourpath` to an actual path you created to store lazydocker's config
+- You might want to create an alias, for example:
 
 ```sh
-echo "alias lzd='docker run --rm -it --privileged -v /var/run/docker.sock:/var/run/docker.sock -v /proc:/host/proc:ro -v /sys:/host/sys:ro -v /var/lib/docker:/var/lib/docker:ro -v ~/.config/lazydocker:/.config/jesseduffield/lazydocker [あなたのユーザー名]/lazydocker-fixed:latest'" >> ~/.zshrc
+echo "alias lzd='docker run --rm -it --privileged -v /var/run/docker.sock:/var/run/docker.sock -v /proc:/host/proc:ro -v /sys:/host/sys:ro -v /var/lib/docker:/var/lib/docker:ro -v ~/.config/lazydocker:/.config/jesseduffield/lazydocker librarylibrarian/lazydocker-fixed:latest'" >> ~/.zshrc
 ```
 
 This version includes:
