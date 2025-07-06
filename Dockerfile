@@ -30,10 +30,23 @@ ENV CGO_ENABLED=0 \
 RUN ./scripts/build/binary
 RUN rm build/docker && mv build/docker-linux-* build/docker
 
-FROM scratch
+FROM alpine:${ALPINE_VERSION}
 ARG BUILD_DATE
 ARG VCS_REF
 ARG VERSION
+ARG ALPINE_VERSION=3.20
+
+# Install necessary packages for Docker-in-Docker environment
+RUN apk add --no-cache \
+    ca-certificates \
+    bash \
+    procps \
+    coreutils \
+    && rm -rf /var/cache/apk/*
+
+# Create necessary directories
+RUN mkdir -p /proc /sys /tmp
+
 LABEL \
     org.opencontainers.image.authors="jessedduffield@gmail.com" \
     org.opencontainers.image.created=$BUILD_DATE \

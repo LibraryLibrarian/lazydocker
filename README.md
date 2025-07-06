@@ -307,6 +307,33 @@ By default we only show logs from the last hour, so that we're not putting too m
 
 If you are running lazydocker in Docker container, it is a know bug, that you can't see logs or CPU usage.
 
+### Docker-in-Docker Fixed Version
+
+For users experiencing issues with logs and CPU usage in Docker-in-Docker environments, we provide a fixed version with enhanced compatibility:
+
+```sh
+docker run --rm -it \
+  --privileged \
+  -v /var/run/docker.sock:/var/run/docker.sock \
+  -v /proc:/host/proc:ro \
+  -v /sys:/host/sys:ro \
+  -v /var/lib/docker:/var/lib/docker:ro \
+  -v /yourpath/config:/.config/jesseduffield/lazydocker \
+  [あなたのユーザー名]/lazydocker-fixed:latest
+```
+
+For convenience, you can create an alias:
+
+```sh
+echo "alias lzd='docker run --rm -it --privileged -v /var/run/docker.sock:/var/run/docker.sock -v /proc:/host/proc:ro -v /sys:/host/sys:ro -v /var/lib/docker:/var/lib/docker:ro -v ~/.config/lazydocker:/.config/jesseduffield/lazydocker [あなたのユーザー名]/lazydocker-fixed:latest'" >> ~/.zshrc
+```
+
+This version includes:
+- Privileged mode for proper Docker-in-Docker operation
+- Host filesystem mounts for accurate CPU and memory statistics
+- Enhanced logging compatibility
+- Alpine base image for better system integration
+
 ## Alternatives
 
 - [docui](https://github.com/skanehira/docui) - Skanehira beat me to the punch on making a docker terminal UI, so definitely check out that repo as well! I think the two repos can live in harmony though: lazydocker is more about managing existing containers/services, and docui is more about creating and configuring them.

@@ -11,6 +11,17 @@ services:
     container_name: lazydocker
     stdin_open: true
     tty: true
+    privileged: true
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - ./config:/.config/jesseduffield/lazydocker
+      - /proc:/host/proc:ro
+      - /sys:/host/sys:ro
+      - /var/lib/docker/:/var/lib/docker:ro
+    environment:
+      - DOCKER_DRIVER=json-file
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
